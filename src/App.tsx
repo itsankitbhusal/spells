@@ -1,25 +1,14 @@
-import { useGetAllSpells } from "./api/hooks/useSpell";
-import SpellCard from "./components/SpellCard";
+import { Outlet } from "react-router";
+import Navbar from "./components/Navbar";
 
 const App = () => {
-  const {
-    data: spells,
-    isLoading: loadingSpells,
-    error: errorSpells,
-  } = useGetAllSpells();
-
-  if (loadingSpells) return <div>Loading...</div>;
-  if (errorSpells) return <div>Error: {errorSpells.message}</div>;
-
   return (
-    <div>
-      <h1>Spells</h1>
-      <ul>
-        {spells?.results.map((spell) => (
-          <SpellCard name={spell.name} level={spell.level} url={spell.url} />
-        ))}
-      </ul>
-    </div>
+    <>
+      <Navbar />
+      <div className="max-w-[1400px] mx-auto">
+        <Outlet />
+      </div>
+    </>
   );
 };
 
