@@ -1,8 +1,10 @@
-import { useParams, Link } from "react-router";
+import { useParams } from "react-router";
 import { useGetSpell } from "../../api/hooks/useSpell";
 import ClassCapsule from "./components/ClassCapsule";
 import SpellDetailRow from "./components/SpellDetailRow";
 import logger from "../../utils/logger";
+import Loading from "../../components/Loading";
+import Error from "../../components/Error";
 
 const SpellDetail = () => {
   const { index } = useParams();
@@ -16,22 +18,16 @@ const SpellDetail = () => {
 
   if (loadingSpell)
     return (
-      <div className="flex justify-center items-center h-screen text-gray-600 text-lg">
-        Loading spell details...
-      </div>
+      <Loading title="Loading" message="Please wait while the data is being loaded..." />
     );
 
-  if (errorSpell)
+  if (errorSpell || !spell)
     return (
-      <div className="flex justify-center items-center h-screen text-red-500 text-lg">
-        Error: {errorSpell.message}
-      </div>
+      <Error message={errorSpell?.message} />
     );
-
-  if (!spell) return null;
 
   return (
-    <div className="mx-auto my-4 px-4">
+    <div className="w-full my-4 ">
       <div className="grid gap-2 p-6 border-[1px] border-gray-200 rounded-[.8rem] bg-white py-6 px-8">
         <h1 className="text-3xl font-bold text-gray-800">{spell.name}</h1>
         <SpellDetailRow label="Level" value={spell.level.toString()} />
