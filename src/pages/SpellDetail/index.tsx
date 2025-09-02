@@ -27,7 +27,7 @@ const SpellDetail = () => {
     );
 
   return (
-    <div className="mx-auto my-4 px-4">
+    <div className="w-full my-4 ">
       <div className="grid gap-2 p-6 border-[1px] border-gray-200 rounded-[.8rem] bg-white py-6 px-8">
         <h1 className="text-3xl font-bold text-gray-800">{spell.name}</h1>
         <SpellDetailRow label="Level" value={spell.level.toString()} />
